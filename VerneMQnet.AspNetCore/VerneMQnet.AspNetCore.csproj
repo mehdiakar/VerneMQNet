@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>VerneMQnet.ASPNetCore</PackageId>
+    <AssemblyName>VerneMQNet.AspNetCore</AssemblyName>
+    <RootNamespace>VerneMQNet.AspNetCore</RootNamespace>
+    <Authors>Mehdi Akar</Authors>
+    <Company>Mehdi Akar</Company>
+    <Version>0.3.0</Version>
+    <Product>VerneMQNet</Product>
+    <Description>VerneMQNet is a ASP.NET Core implementation of VerneMQ abilities on HTTP. this library helps to write VerneMQ web hooks server, run all vmq-admin commands using HTTP and monitor all server metrics.</Description>
+    <PackageLicenseUrl>https://github.com/mehdiakar/VerneMQNet/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/mehdiakar/VerneMQNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mehdiakar/VerneMQNet</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Administration\" />
+    <Folder Include="Monitoring\" />
+  </ItemGroup>
+
+</Project>
