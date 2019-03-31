@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VerneMQNet.AspNetCore.Administration.Cluster
 {
-	public class ClusterShowResponse
+	internal class ClusterShowResponse
 	{
 		public string Type { get; set; }
 		public IEnumerable<NodeInfo> Table { get; set; }

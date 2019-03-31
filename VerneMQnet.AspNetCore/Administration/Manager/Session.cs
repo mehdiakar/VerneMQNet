@@ -41,10 +41,11 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 		/// </summary>
 		/// <param name="filter">Optional items to filter sessions</param>
 		/// <returns>List of client session information</returns>
-		public async Task<IEnumerable<SessionInfo>> Show(SessionShowFilter filter)
+		public async Task<IEnumerable<SessionInfo>> Show(SessionShowFilter filter = null)
 		{
 			StringBuilder builder = new StringBuilder();
 			builder.Append($"{this.configuration.CreateUrl()}{showApiPath}?{responseParameters}");
+			if(filter != null) { 
 			if (filter.CleanSession != null)
 				builder.Append($"&--clean_session={filter.CleanSession}");
 
@@ -125,7 +126,8 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 			if (filter.WaitingAcks.HasValue)
 				builder.Append($"&--waiting_acks={filter.WaitingAcks.Value}");
 
-			
+			}
+
 			using (HttpClient client = new HttpClient(clientHandler))
 			{
 				var response = await client.GetAsync(builder.ToString()).ConfigureAwait(false);

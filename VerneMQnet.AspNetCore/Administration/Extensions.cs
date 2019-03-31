@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using VerneMQNet.AspNetCore.Administration.Session;
+using VerneMQNet.AspNetCore.Administration.Plugin;
 
 namespace VerneMQNet.AspNetCore.Administration
 {
@@ -15,7 +16,7 @@ namespace VerneMQNet.AspNetCore.Administration
 
 		public static IEnumerable<SessionInfo> ConvertToSessionInfo(this IEnumerable<VerneMQSessionInfo> sessions)
 		{
-			if (sessions == null || !sessions.Any())
+			if (!sessions?.Any() ?? true)
 				return new List<SessionInfo>();
 
 			return sessions.Select(x => new SessionInfo
@@ -45,6 +46,38 @@ namespace VerneMQNet.AspNetCore.Administration
 				Username = x.User,
 				WaitingAcks = x.Waiting_acks
 			}).ToList();
+		}
+		public static IEnumerable<Plugin.PluginInfo> ConvertToPluginInfo(this IEnumerable<Plugin.VerneMQPluginInfo> plugins)
+		{
+			if(!plugins?.Any() ?? true)
+				return new List<PluginInfo>();
+
+			return plugins.Select(x => new PluginInfo
+			{
+				Plugin = x.Plugin,
+				Type = x.Type,
+				Hooks = x.Hooks.ToPluginHooks(),
+				MFAs = x.MFA.ToPluginMFA()
+			});
+
+		}
+
+		public static IEnumerable<string> ToPluginHooks(this string hooks)
+		{
+			return hooks.Trim('\n').Split('\n').ToList();
+		}
+
+		public static IEnumerable<MFA> ToPluginMFA(this string mfa)
+		{
+			return mfa.Trim('\n').Split('\n').Select(x => {
+				var item = x.Split(':', '/');
+				return new MFA
+				{
+					Module = item[0],
+					Function = item[1],
+					Arity = Convert.ToInt32(item[2])
+				};
+				}).ToList();
 		}
 	}
 }
