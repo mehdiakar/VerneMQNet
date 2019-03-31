@@ -13,7 +13,7 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 	/// <summary>
 	/// Administrate cluster membership for particular VerneMQ node.
 	/// </summary>
-	public class Cluster
+	public class Cluster : ICluster
 	{
 		IAdministrationConfiguration configuration;
 		JsonMediaTypeFormatter jsonFormatter;
@@ -31,6 +31,11 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 				Credentials = new NetworkCredential(this.configuration.ApiKey, "")
 			};
 		}
+		/// <summary>
+		///  Return cluster information
+		///  For more information <see cref="https://docs.vernemq.com/vernemq-clustering/introduction#getting-cluster-status-information"/>
+		/// </summary>
+		/// <returns></returns>
 
 		public async Task<IEnumerable<NodeInfo>> Show()
 		{
@@ -52,6 +57,7 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 		}
 		/// <summary>
 		/// The discovery node will be used to find out about the nodes in the cluster.
+		/// For more information <see cref="https://docs.vernemq.com/vernemq-clustering/introduction#joining-a-cluster"/>
 		/// </summary>
 		/// <param name="request">Node information to join</param>
 		/// <returns></returns>
@@ -77,17 +83,18 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 		/// <summary>
 		/// Graceful cluster-leave and shutdown of a cluster node.
 		/// 
-		///If<Node> is already offline its cluster membership gets removed, 
+		///If <see cref="JoinNodeRequest.DiscoveryNode"/> is already offline its cluster membership gets removed, 
 		///and the queues of the subscribers that have been connected at shutdown
 		///will be recreated on other cluster nodes.This might involve
 		///the disconnecting of clients that have already reconnected.
 		///
-		///If<Node> is still online all its MQTT listeners(including websockets)
+		///If <see cref="JoinNodeRequest.DiscoveryNode"/> is still online all its MQTT listeners(including websockets)
 		///are stopped and wont therefore accept new connections.Established
 		///connections aren't cancelled at this point. Use KillSession to get
 		///into the second phase of the graceful shutdown.
+		///For more information <see cref="https://docs.vernemq.com/vernemq-clustering/introduction#leaving-a-cluster"/>
 		/// </summary>
-		/// <param name="request"></param>
+		/// <param name="request">node information to leave</param>
 		/// <returns></returns>
 		public async Task<bool> Leave(LeaveNodeRequest request)
 		{

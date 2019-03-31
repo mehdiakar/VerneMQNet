@@ -13,7 +13,7 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 	/// <summary>
 	///  Manage MQTT sessions.
 	/// </summary>
-	public class Session
+	public class Session : ISession
 	{
 		IAdministrationConfiguration configuration;
 		JsonMediaTypeFormatter jsonFormatter;

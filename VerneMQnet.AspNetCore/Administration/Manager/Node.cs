@@ -11,7 +11,7 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 	/// <summary>
 	/// Administrate this VerneMQ node.
 	/// </summary>
-	public class Node
+	public class Node : INode
 	{
 		IAdministrationConfiguration configuration;
 		private readonly string startApiPath = "api/v1/node/start";

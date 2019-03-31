@@ -13,7 +13,7 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 	/// <summary>
 	/// Mangage plugins.
 	/// </summary>
-	public class Plugin
+	public class Plugin : IPlugin
 	{
 		IAdministrationConfiguration configuration;
 		JsonMediaTypeFormatter jsonFormatter;
@@ -34,6 +34,7 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 
 		/// <summary>
 		/// Shows the currently running plugins.
+		/// For more information <seealso cref="https://docs.vernemq.com/configuring-vernemq/plugins"/>
 		/// </summary>
 		/// <param name="request">request options <see cref="PluginShowRequest"/></param>
 		/// <returns></returns>
@@ -71,6 +72,7 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 		/// plugins are bundled as Erlang OTP apps.If the application code is not yet
 		/// loaded you have to specify the --path=<PathToPlugin>. If the plugin is
 		/// implemented in a single Erlang module make sure that the module is loaded.
+		/// For more information <seealso cref="https://docs.vernemq.com/configuring-vernemq/plugins#enable-a-plugin"/>
 		/// </summary>
 		/// <param name="request">plugin information</param>
 		/// <returns></returns>
@@ -113,8 +115,9 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 
 		/// <summary>
 		/// Disables either an application plugin
+		/// For more information <seealso cref="https://docs.vernemq.com/configuring-vernemq/plugins#disable-a-plugin"/>
 		/// </summary>
-		/// <param name="request"></param>
+		/// <param name="request">plugin information</param>
 		/// <returns></returns>
 		public async Task<bool> Disable(DisableRequest request)
 		{
