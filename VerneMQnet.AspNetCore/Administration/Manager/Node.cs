@@ -43,10 +43,12 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 
 		private async Task<bool> SendNodeRequest(string eventPath)
 		{
+			StringBuilder builder = new StringBuilder();
+			builder.Append($"{this.configuration.CreateUrl()}{eventPath}");
 			using (HttpClient client = new HttpClient())
 			{
 				client.DefaultRequestHeaders.Add("Authorization Basic", this.configuration.ApiKey);
-				var response = await client.GetAsync(this.configuration.CreateUrl() + eventPath).ConfigureAwait(false);
+				var response = await client.GetAsync(builder.ToString()).ConfigureAwait(false);
 
 				if (response.StatusCode == System.Net.HttpStatusCode.OK)
 					return true;

@@ -44,7 +44,8 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 		public async Task<IEnumerable<SessionInfo>> Show(SessionShowFilter filter)
 		{
 			StringBuilder builder = new StringBuilder();
-			if(filter.CleanSession != null)
+			builder.Append($"{this.configuration.CreateUrl()}{showApiPath}?{responseParameters}");
+			if (filter.CleanSession != null)
 				builder.Append($"&--clean_session={filter.CleanSession}");
 
 
@@ -127,7 +128,7 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 			
 			using (HttpClient client = new HttpClient(clientHandler))
 			{
-				var response = await client.GetAsync(this.configuration.CreateUrl() + showApiPath + "?"+ responseParameters+ builder.ToString()).ConfigureAwait(false);
+				var response = await client.GetAsync(builder.ToString()).ConfigureAwait(false);
 
 				if (response.StatusCode == System.Net.HttpStatusCode.OK)
 				{
@@ -149,8 +150,9 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 		{
 			if (request == null || string.IsNullOrWhiteSpace(request.ClientId))
 				throw new ArgumentNullException(nameof(request.ClientId), "ClientId value is required");
+
 			StringBuilder builder = new StringBuilder();
-			builder.Append($"client-id={request.ClientId}");
+			builder.Append($"{this.configuration.CreateUrl()}{disconnectApiPath}?client-id={request.ClientId}");
 
 			if(request.Cleanup)
 				builder.Append("&--cleanup");
@@ -160,7 +162,7 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 
 			using (HttpClient client = new HttpClient(this.clientHandler))
 			{
-				var response = await client.GetAsync(this.configuration.CreateUrl() + disconnectApiPath + "?" + builder.ToString()).ConfigureAwait(false);
+				var response = await client.GetAsync(builder.ToString()).ConfigureAwait(false);
 
 				if (response.StatusCode == System.Net.HttpStatusCode.OK)
 				{
@@ -181,15 +183,16 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 		{
 			if (request == null || string.IsNullOrWhiteSpace(request.ClientId) || string.IsNullOrWhiteSpace(request.Username))
 				throw new ArgumentNullException("ClientId and Username are required");
+
 			StringBuilder builder = new StringBuilder();
-			builder.Append($"client-id={request.ClientId}&username={request.Username}");
+			builder.Append($"{this.configuration.CreateUrl()}{reauthorizeApiPath}?client-id={request.ClientId}&username={request.Username}");
 
 			if (!string.IsNullOrWhiteSpace(request.Mountpoint))
 				builder.Append($"--mountpoint={request.Mountpoint}");
 
 			using (HttpClient client = new HttpClient(this.clientHandler))
 			{
-				var response = await client.GetAsync(this.configuration.CreateUrl() + reauthorizeApiPath + "?" + builder.ToString()).ConfigureAwait(false);
+				var response = await client.GetAsync(builder.ToString()).ConfigureAwait(false);
 
 				if (response.StatusCode == System.Net.HttpStatusCode.OK)
 				{
