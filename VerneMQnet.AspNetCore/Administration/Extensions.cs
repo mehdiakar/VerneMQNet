@@ -62,6 +62,69 @@ namespace VerneMQNet.AspNetCore.Administration
 
 		}
 
+		public static IEnumerable<Configuration.AllowAnonymousStatus> ConvertToAllowAnonymousStatus(this IEnumerable<Configuration.VerneMQAllowAnonymousStatus> statuses)
+		{
+			if (!statuses?.Any() == null)
+				return new List<Configuration.AllowAnonymousStatus>();
+
+			return statuses.Select(x => new Configuration.AllowAnonymousStatus
+			{
+				AllowAnonymous = x.Allow_anonymous.ToLower() == "off" ? false : true,
+				Node = x.Node
+			}).ToList();
+
+		}
+
+		public static IEnumerable<Configuration.MqttOption> ConvertToMqttOption(this IEnumerable<Configuration.VerneMQMqttOption> options)
+		{
+			if (!options?.Any() == null)
+				return new List<Configuration.MqttOption>();
+
+			return options.Select(x => new Configuration.MqttOption
+			{
+				RetryInterval = x.Retry_interval,
+				MaxInflightMessages = x.Max_inflight_messages,
+				MaxOfflineMessages = x.Max_offline_messages,
+				MaxOnlineMessages = x.Max_online_messages,
+				Node = x.Node
+			}).ToList();
+
+		}
+		public static IEnumerable<Configuration.NonStandardMqttOption> ConvertToNonStandardMqttOption(this IEnumerable<Configuration.VerneMQNonStandardMqttOption> options)
+		{
+			if (!options?.Any() == null)
+				return new List<Configuration.NonStandardMqttOption>();
+
+			return options.Select(x => new Configuration.NonStandardMqttOption
+			{
+				MaxClientIdSize = x.Max_client_id_size,
+				MessageSizeLimit = x.Message_size_limit,
+				PersistentClientExpirationInSeconds = x.Persistent_client_expiration,
+				Node = x.Node
+			}).ToList();
+
+		}
+
+		public static IEnumerable<Configuration.AdvancedOptions> ConvertToAdvancedOptions(this IEnumerable<Configuration.VerneMQAdvancedOptions> options)
+		{
+			if (!options?.Any() == null)
+				return new List<Configuration.AdvancedOptions>();
+
+			return options.Select(x => new Configuration.AdvancedOptions
+			{
+				MaxDrainTime = x.Max_drain_time,
+				MaxMessageRate = x.Max_message_rate,
+				MaxMessagesPerDrainStep = x.Max_msgs_per_drain_step,
+				OutgoingClusteringBufferSize = x.Outgoing_clustering_buffer_size,
+				QueueDeliverMode = QueueDeliverMode.Fanout.ToString().ToLower() == x.Queue_deliver_mode.ToLower() ? QueueDeliverMode.Fanout : QueueDeliverMode.Balance,
+				QueueType = QueueType.Fifo.ToString().ToLower() == x.Queue_type.ToLower() ? QueueType.Fifo : QueueType.Lifo,
+				Node = x.Node
+			}).ToList();
+
+		}
+		
+
+
 		public static IEnumerable<string> ToPluginHooks(this string hooks)
 		{
 			return hooks.Trim('\n').Split('\n').ToList();

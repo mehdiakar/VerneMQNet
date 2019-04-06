@@ -48,7 +48,7 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 
 				if (response.StatusCode == System.Net.HttpStatusCode.OK)
 				{
-					var result = await response.Content.ReadAsAsync<ClusterShowResponse>(new List<MediaTypeFormatter> { jsonFormatter });
+					var result = await response.Content.ReadAsAsync<TableBaseResponse<NodeInfo>>(new List<MediaTypeFormatter> { jsonFormatter });
 					return result.Table;
 				}
 				else

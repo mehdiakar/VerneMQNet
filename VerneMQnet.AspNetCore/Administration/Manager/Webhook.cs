@@ -49,7 +49,7 @@ namespace VerneMQNet.AspNetCore.Administration.Manager
 
 				if (response.StatusCode == System.Net.HttpStatusCode.OK)
 				{
-					var result = await response.Content.ReadAsAsync<ShowResponse>(new List<MediaTypeFormatter> { jsonFormatter });
+					var result = await response.Content.ReadAsAsync<TableBaseResponse<WebhookInfo>>(new List<MediaTypeFormatter> { jsonFormatter });
 					return result.Table;
 				}
 				else
