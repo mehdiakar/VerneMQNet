@@ -9,12 +9,15 @@
     <RootNamespace>VerneMQNet.AspNetCore</RootNamespace>
     <Authors>Mehdi Akar</Authors>
     <Company>Mehdi Akar</Company>
-    <Version>0.3.0</Version>
+    <Version>0.8.0-alpha</Version>
     <Product>VerneMQNet</Product>
     <Description>VerneMQNet is a ASP.NET Core implementation of VerneMQ abilities on HTTP. this library helps to write VerneMQ web hooks server, run all vmq-admin commands using HTTP and monitor all server metrics.</Description>
     <PackageLicenseUrl>https://github.com/mehdiakar/VerneMQNet/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/mehdiakar/VerneMQNet</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mehdiakar/VerneMQNet</RepositoryUrl>
+    <AssemblyVersion>0.8.0.0</AssemblyVersion>
+    <FileVersion>0.8.0.0</FileVersion>
+    <PackageTags>VerneMQ</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
