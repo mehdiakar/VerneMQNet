@@ -1,5 +1,5 @@
 # VerneMQNet
-VerneMQNet is a ASP.NET Core implementation of VerneMQ abilities on HTTP. this library helps to write VerneMQ web hooks server, run all vmq-admin commands using HTTP and monitor all VerneMQ server metrics.
+VerneMQNet is an ASP.NET Core implementation of VerneMQ abilities on HTTP. this library helps to write VerneMQ web hooks server, run all vmq-admin commands using HTTP and monitor all VerneMQ server metrics.
 
 [![NuGet Badge](https://buildstats.info/nuget/VerneMQnet.ASPNetCore?includePreReleases=true)](https://www.nuget.org/packages/VerneMQnet.ASPNetCore)
 ## Features
